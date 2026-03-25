@@ -1,2 +1,2 @@
 # Project-1X
-Projet Data Base Challenge - IAM - 2 Sem
+Projet Data Base Challenge - IAM - 2 Semestre
