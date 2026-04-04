@@ -34,9 +34,27 @@ Route::middleware('auth')->group(function () {
     Route::get('auth/user', [AuthController::class, 'user']);
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // Web routes for views
+    Route::get('patients', function () {
+        return view('patients.index');
+    })->name('patients.index');
+
+    Route::get('doctors', function () {
+        return view('doctors.index');
+    })->name('doctors.index');
+
+    Route::get('appointments', function () {
+        return view('appointments.index');
+    })->name('appointments.index');
+
+    Route::get('medical-records', function () {
+        return view('medical-records.index');
+    })->name('medical-records.index');
+
+    // API routes for data
     Route::get('admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::apiResource('doctors', DoctorController::class);
-    Route::apiResource('patients', PatientController::class)->only(['index', 'show', 'update']);
-    Route::apiResource('appointments', AppointmentController::class);
-    Route::apiResource('medical-records', MedicalRecordController::class);
+    Route::apiResource('api/doctors', DoctorController::class);
+    Route::apiResource('api/patients', PatientController::class)->only(['index', 'show', 'update']);
+    Route::apiResource('api/appointments', AppointmentController::class);
+    Route::apiResource('api/medical-records', MedicalRecordController::class);
 });
