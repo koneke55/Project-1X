@@ -17,9 +17,22 @@ Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
 });
 
+// Routes nommées pour la compatibilité avec la vue
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login')->middleware('guest');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register')->middleware('guest');
+
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('auth/user', [AuthController::class, 'user']);
-    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
     Route::apiResource('doctors', DoctorController::class);

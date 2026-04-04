@@ -27,7 +27,11 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return response()->json(['message' => 'Utilisateur créé', 'user' => $user], 201);
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Utilisateur créé', 'user' => $user], 201);
+        }
+
+        return redirect('/dashboard')->with('success', 'Bienvenue ! Votre compte a été créé avec succès.');
     }
 
     public function login(Request $request)
@@ -37,13 +41,23 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Identifiants invalides'], 401);
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Identifiants invalides'], 401);
+            }
+
+            return back()->withErrors([
+                'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+            ])->onlyInput('email');
         }
 
         $request->session()->regenerate();
 
-        return response()->json(['message' => 'Connecté', 'user' => Auth::user()]);
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Connecté', 'user' => Auth::user()]);
+        }
+
+        return redirect()->intended('/dashboard')->with('success', 'Bienvenue ! Vous êtes maintenant connecté.');
     }
 
     public function logout(Request $request)
@@ -53,7 +67,11 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return response()->json(['message' => 'Déconnecté']);
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Déconnecté']);
+        }
+
+        return redirect('/')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
     public function user()
