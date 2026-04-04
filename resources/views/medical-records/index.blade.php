@@ -18,6 +18,116 @@
         .medical-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: 2px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #6b7280;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: 1px solid #d1d5db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+            color: #374151;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        .btn-success:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #6b7280;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .btn-ghost:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
         .fade-in {
             animation: fadeIn 0.6s ease-in-out;
         }
@@ -190,7 +300,7 @@
                         </div>
                     </div>
                     @if(Auth::user()->isAdmin() || Auth::user()->isDoctor())
-                    <button onclick="openNewRecordModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition duration-300 flex items-center flip-in">
+                    <button onclick="openNewRecordModal()" class="btn-primary">
                         <i class="fas fa-plus mr-2"></i>
                         Nouveau Dossier
                     </button>
@@ -312,10 +422,10 @@
                             </div>
                         </div>
                         <div class="flex justify-end space-x-3">
-                            <button type="button" onclick="closeNewRecordModal()" class="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium">
+                            <button type="button" onclick="closeNewRecordModal()" class="btn-secondary">
                                 Annuler
                             </button>
-                            <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium transition duration-300">
+                            <button type="submit" class="btn-primary">
                                 <i class="fas fa-save mr-2"></i>
                                 Enregistrer
                             </button>
@@ -453,8 +563,7 @@
                         ${record.vital_signs ? '<i class="fas fa-heartbeat text-red-500 vital-signs"></i>' : ''}
                         <span class="text-xs text-gray-500">Créé le ${record.created_at ? new Date(record.created_at).toLocaleDateString('fr-FR') : 'N/A'}</span>
                     </div>
-                    <button onclick="viewRecordDetails(${record.id})"
-                            class="text-purple-600 hover:text-purple-800 font-medium text-sm transition duration-300">
+                    <button onclick="viewRecordDetails(${record.id})" class="btn-outline">
                         Voir détails
                     </button>
                 </div>
@@ -570,11 +679,11 @@
                     </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium">
+                    <button onclick="closeModal()" class="btn-secondary">
                         Fermer
                     </button>
                     @if(Auth::user()->isAdmin() || Auth::user()->isDoctor())
-                    <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium transition duration-300">
+                    <button class="btn-primary">
                         Modifier
                     </button>
                     @endif
