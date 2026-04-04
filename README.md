@@ -2,7 +2,7 @@
 
 ## Description
 
-Project-1X est une application Laravel conçue pour un challenge de base de données en deuxième semestre du DUT IAM. Elle propose une interface médicale moderne pour gérer les utilisateurs, les patients, les médecins, les rendez-vous et les dossiers médicaux.
+Project-1X est une application Laravel conçue pour un challenge de base de données en deuxième semestre du Licence IAM. Elle propose une interface médicale moderne pour gérer les utilisateurs, les patients, les médecins, les rendez-vous et les dossiers médicaux.
 
 ## Fonctionnalités principales
 
