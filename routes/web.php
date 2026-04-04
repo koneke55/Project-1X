@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('auth/user', [AuthController::class, 'user']);
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::apiResource('doctors', DoctorController::class);
     Route::apiResource('patients', PatientController::class)->only(['index', 'show', 'update']);
     Route::apiResource('appointments', AppointmentController::class);

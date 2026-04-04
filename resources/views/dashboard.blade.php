@@ -114,21 +114,21 @@
             <!-- Quick Actions -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @if(Auth::user()->isAdmin())
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('patients.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-blue-600 mb-4">
                             <i class="fas fa-users-cog"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Gestion Utilisateurs</h3>
                         <p class="text-gray-600">Gérer les comptes utilisateurs et rôles</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('doctors.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-green-600 mb-4">
                             <i class="fas fa-user-md"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Gestion Docteurs</h3>
                         <p class="text-gray-600">Ajouter et gérer les médecins</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('admin.dashboard') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-purple-600 mb-4">
                             <i class="fas fa-chart-line"></i>
                         </div>
@@ -136,21 +136,21 @@
                         <p class="text-gray-600">Voir les rapports et analyses</p>
                     </a>
                 @elseif(Auth::user()->isDoctor())
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-blue-600 mb-4">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Mes Rendez-vous</h3>
                         <p class="text-gray-600">Voir et gérer mes consultations</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('medical-records.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-green-600 mb-4">
                             <i class="fas fa-file-medical"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Dossiers Patients</h3>
                         <p class="text-gray-600">Accéder aux dossiers médicaux</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-purple-600 mb-4">
                             <i class="fas fa-clock"></i>
                         </div>
@@ -158,21 +158,21 @@
                         <p class="text-gray-600">Gérer mes horaires</p>
                     </a>
                 @elseif(Auth::user()->isPatient())
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-blue-600 mb-4">
                             <i class="fas fa-calendar-plus"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Prendre RDV</h3>
                         <p class="text-gray-600">Réserver une consultation</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-green-600 mb-4">
                             <i class="fas fa-calendar-check"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Mes Rendez-vous</h3>
                         <p class="text-gray-600">Voir mes consultations</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('medical-records.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-purple-600 mb-4">
                             <i class="fas fa-file-medical"></i>
                         </div>
@@ -180,21 +180,21 @@
                         <p class="text-gray-600">Accéder à mon historique médical</p>
                     </a>
                 @else
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-blue-600 mb-4">
                             <i class="fas fa-calendar-plus"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Nouveau RDV</h3>
                         <p class="text-gray-600">Créer un rendez-vous</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('appointments.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-green-600 mb-4">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Gestion RDV</h3>
                         <p class="text-gray-600">Voir tous les rendez-vous</p>
                     </a>
-                    <a href="#" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50">
+                    <a href="{{ route('patients.index') }}" class="card bg-white rounded-xl p-6 text-center hover:bg-gray-50 transition duration-300 ease-in-out block h-full">
                         <div class="text-4xl text-purple-600 mb-4">
                             <i class="fas fa-users"></i>
                         </div>
