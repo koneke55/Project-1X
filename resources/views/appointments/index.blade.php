@@ -278,6 +278,27 @@
                 </p>
             </div>
 
+            <!-- Navigation Menu -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-8 slide-up">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('dashboard') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Tableau de bord
+                    </a>
+                    <a href="{{ route('patients.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-users mr-2"></i>Patients
+                    </a>
+                    <a href="{{ route('doctors.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-user-md mr-2"></i>Docteurs
+                    </a>
+                    <a href="{{ route('appointments.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white hover:bg-white/30 transition-all duration-300 font-semibold">
+                        <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                    </a>
+                    <a href="{{ route('medical-records.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-file-medical mr-2"></i>Dossiers Médicaux
+                    </a>
+                </div>
+            </div>
+
             <!-- Quick Actions & Filters -->
             <div class="bg-white rounded-xl p-6 mb-8 slide-up">
                 <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
@@ -566,28 +587,36 @@
         // Generate mini calendar
         function generateCalendar() {
             const calendar = document.getElementById('calendarPreview');
+            const currentMonth = currentCalendarDate.getMonth();
+            const currentYear = currentCalendarDate.getFullYear();
             const today = new Date();
-            const currentMonth = today.getMonth();
-            const currentYear = today.getFullYear();
 
             let calendarHTML = `
-                <div class="text-center mb-4">
-                    <h4 class="font-semibold text-gray-900">${today.toLocaleDateString('fr-FR', {month: 'long', year: 'numeric'})}</h4>
+                <div class="flex justify-between items-center mb-6">
+                    <button onclick="previousMonth()" class="btn-outline p-2">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h4 class="font-bold text-xl text-gray-900">${currentCalendarDate.toLocaleDateString('fr-FR', {month: 'long', year: 'numeric'})}</h4>
+                    <button onclick="nextMonth()" class="btn-outline p-2">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                <div class="grid grid-cols-7 gap-2 text-center mb-4">
             `;
 
-            // Days of week
-            const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+            // Days of week - French
+            const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
             days.forEach(day => {
-                calendarHTML += `<div class="text-gray-500 font-medium">${day}</div>`;
+                calendarHTML += `<div class="text-gray-600 font-semibold text-sm py-2">${day}</div>`;
             });
+
+            calendarHTML += '</div><div class="grid grid-cols-7 gap-2">';
 
             // Calendar days
             const firstDay = new Date(currentYear, currentMonth, 1);
             const lastDay = new Date(currentYear, currentMonth + 1, 0);
             const startDate = new Date(firstDay);
-            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            startDate.setDate(startDate.getDate() - firstDay.getDay() + 1); // Start from Monday
 
             for (let i = 0; i < 42; i++) {
                 const currentDate = new Date(startDate);
@@ -595,14 +624,26 @@
 
                 const isCurrentMonth = currentDate.getMonth() === currentMonth;
                 const isToday = currentDate.toDateString() === today.toDateString();
+                const dateStr = currentDate.toISOString().split('T')[0];
                 const hasAppointments = appointments.some(apt =>
-                    apt.scheduled_at.startsWith(currentDate.toISOString().split('T')[0])
+                    apt.scheduled_at.startsWith(dateStr)
                 );
 
+                const appointmentCount = appointments.filter(apt =>
+                    apt.scheduled_at.startsWith(dateStr)
+                ).length;
+
                 calendarHTML += `
-                    <div class="p-1 ${isCurrentMonth ? 'text-gray-900' : 'text-gray-400'} ${isToday ? 'bg-indigo-600 text-white rounded' : ''} ${hasAppointments ? 'font-bold' : ''}">
-                        ${currentDate.getDate()}
-                        ${hasAppointments ? '<div class="w-1 h-1 bg-indigo-400 rounded-full mx-auto mt-1"></div>' : ''}
+                    <div class="calendar-day p-3 border rounded-lg cursor-pointer transition-all duration-200 hover:shadow-md ${
+                        isCurrentMonth ? 'bg-white text-gray-900 hover:bg-indigo-50' : 'bg-gray-50 text-gray-400'
+                    } ${isToday ? 'bg-indigo-100 border-indigo-300 ring-2 ring-indigo-200' : 'border-gray-200'}"
+                         onclick="selectDate('${dateStr}')">
+                        <div class="text-sm font-medium mb-1">${currentDate.getDate()}</div>
+                        ${hasAppointments ? `<div class="flex justify-center">
+                            <span class="bg-indigo-500 text-white text-xs px-2 py-1 rounded-full">
+                                ${appointmentCount}
+                            </span>
+                        </div>` : ''}
                     </div>
                 `;
 
@@ -611,6 +652,31 @@
 
             calendarHTML += '</div>';
             calendar.innerHTML = calendarHTML;
+        }
+
+        let currentCalendarDate = new Date();
+
+        // Navigate to previous month
+        function previousMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            generateCalendar();
+        }
+
+        // Navigate to next month
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            generateCalendar();
+        }
+
+        // Select a date from calendar
+        function selectDate(dateStr) {
+            document.getElementById('dateFilter').value = dateStr;
+            renderAppointments();
+            // Highlight selected date
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('ring-2', 'ring-green-200', 'bg-green-100', 'border-green-300');
+            });
+            event.target.closest('.calendar-day').classList.add('ring-2', 'ring-green-200', 'bg-green-100', 'border-green-300');
         }
 
         // Populate booking form

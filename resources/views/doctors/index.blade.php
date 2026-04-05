@@ -264,6 +264,27 @@
                 </p>
             </div>
 
+            <!-- Navigation Menu -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-8 slide-up">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('dashboard') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Tableau de bord
+                    </a>
+                    <a href="{{ route('patients.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-users mr-2"></i>Patients
+                    </a>
+                    <a href="{{ route('doctors.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white hover:bg-white/30 transition-all duration-300 font-semibold">
+                        <i class="fas fa-user-md mr-2"></i>Docteurs
+                    </a>
+                    <a href="{{ route('appointments.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                    </a>
+                    <a href="{{ route('medical-records.index') }}" class="nav-link flex items-center px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-all duration-300">
+                        <i class="fas fa-file-medical mr-2"></i>Dossiers Médicaux
+                    </a>
+                </div>
+            </div>
+
             <!-- Search and Filters -->
             <div class="bg-white rounded-xl p-6 mb-8 search-bar">
                 <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
