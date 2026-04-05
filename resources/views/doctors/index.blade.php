@@ -260,7 +260,7 @@
                     Gestion des Docteurs
                 </h1>
                 <p class="text-xl text-gray-100 slide-up">
-                    Découvrez et gérez notre équipe médicale
+                    Découvrez et gérez notre équipe médicale.
                 </p>
             </div>
 
